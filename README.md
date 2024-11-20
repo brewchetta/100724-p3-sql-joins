@@ -12,6 +12,10 @@
 
 - The JOIN keyword
 
+## Reminder to Chett
+
+DO NOT CLEAR YOUR TERMINAL OUTPUT BEFORE PUTTING IT IN `output.txt`!
+
 ## Getting Started
 
 Once you've cloned the repository, you can create the tables with `sqlite3 main.db < create_tables.sql`.
