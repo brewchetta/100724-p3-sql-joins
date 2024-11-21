@@ -1,0 +1,126 @@
+sqlite> .schema
+CREATE TABLE schools_table (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+CREATE TABLE students_table (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+CREATE TABLE doctors_table (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    specialty TEXT NOT NULL
+);
+CREATE TABLE patients_table (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+CREATE TABLE appointments_table (
+    id INTEGER PRIMARY KEY,
+    reason TEXT
+);
+sqlite> .headers on
+sqlite> .mode columns
+sqlite> INSERT INTO schools_table (name) VALUES ("Derrick Zoolanders Center for Kids Who Dont Read Good and Who Want to Learn to Do Other Stuff Good T
+oo");
+sqlite> INSERT INTO schools_table (name) VALUES ("Hogwarts");
+sqlite> INSERT INTO schools_table (name) VALUES ("Flatiron");
+sqlite> SELECT * FROM schools_table;
+id  name                                                        
+--  ------------------------------------------------------------
+1   Derrick Zoolanders Center for Kids Who Dont Read Good and Wh
+    o Want to Learn to Do Other Stuff Good Too                  
+
+2   Hogwarts                                                    
+
+3   Flatiron                                                    
+sqlite> SELECT * FROM students_table;
+sqlite> INSERT INTO students_table (name) VALUES ("Bilbo Baggins");
+sqlite> INSERT INTO students_table (name) VALUES ("Annie");
+sqlite> INSERT INTO students_table (name) VALUES ("Justin");
+sqlite> SELECT * FROM students_table;
+id  name         
+--  -------------
+1   Bilbo Baggins
+2   Annie        
+3   Justin       
+sqlite> ALTER TABLE students_table ADD COLUMN school_id INTEGER;
+sqlite> UPDATE students_table SET school_id = 2 WHERE id = 1;
+sqlite> UPDATE students_table SET school_id = 1 WHERE id = 2;
+sqlite> UPDATE students_table SET school_id = 1 WHERE id = 3;
+sqlite> SELECT * FROM students_table;
+id  name           school_id
+--  -------------  ---------
+1   Bilbo Baggins  2        
+2   Annie          1        
+3   Justin         1        
+sqlite> SELECT * FROM students_table;
+id  name           school_id
+--  -------------  ---------
+1   Bilbo Baggins  2        
+2   Annie          1        
+3   Justin         1        
+sqlite> SELECT students_table.id, students_table.name FROM students_table;
+id  name         
+--  -------------
+1   Bilbo Baggins
+2   Annie        
+3   Justin       
+sqlite> SELECT students_table.id, students_table.name, students_table.school_id FROM students_table;
+id  name           school_id
+--  -------------  ---------
+1   Bilbo Baggins  2        
+2   Annie          1        
+3   Justin         1        
+sqlite> SELECT students_table.name, schools_table.name
+   ...> FROM students_table
+   ...> JOIN schools_table
+   ...> ON students_table.school_id = schools_table.id;
+name           name                                                        
+-------------  ------------------------------------------------------------
+Bilbo Baggins  Hogwarts                                                    
+
+Annie          Derrick Zoolanders Center for Kids Who Dont Read Good and Wh
+               o Want to Learn to Do Other Stuff Good Too                  
+
+Justin         Derrick Zoolanders Center for Kids Who Dont Read Good and Wh
+               o Want to Learn to Do Other Stuff Good Too                  
+sqlite> SELECT schools_table.name, students_table.name
+   ...> FROM student_table
+   ...> ;
+Parse error: no such table: student_table
+sqlite> SELECT schools_table.name, students_table.name
+   ...> FROM students_table
+   ...> JOIN student
+   ...> ;
+Parse error: no such table: student
+sqlite> SELECT schools_table.name, students_table.name
+   ...> FROM students_table 
+   ...> JOIN schools_table 
+   ...> ON students_table.school_id = schools_table.id;
+name                                                          name         
+------------------------------------------------------------  -------------
+Hogwarts                                                      Bilbo Baggins
+
+Derrick Zoolanders Center for Kids Who Dont Read Good and Wh  Annie        
+o Want to Learn to Do Other Stuff Good Too                                 
+
+Derrick Zoolanders Center for Kids Who Dont Read Good and Wh  Justin       
+o Want to Learn to Do Other Stuff Good Too                                 
+sqlite> SELECT * FROM students_table WHERE school_id = 1;
+id  name    school_id
+--  ------  ---------
+2   Annie   1        
+3   Justin  1        
+sqlite> SELECT * FROM students_table
+   ...> JOIN schools_table ON students_table.school_id = schools_table.id;
+id  name           school_id  id  name                                                        
+--  -------------  ---------  --  ------------------------------------------------------------
+1   Bilbo Baggins  2          2   Hogwarts                                                    
+
+2   Annie          1          1   Derrick Zoolanders Center for Kids Who Dont Read Good and Wh
+                                  o Want to Learn to Do Other Stuff Good Too                  
+
+3   Justin         1          1   Derrick Zoolanders Center for Kids Who Dont Read Good and Wh
+                                  o Want to Learn to Do Other Stuff Good Too

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS schools_table (
 
 CREATE TABLE IF NOT EXISTS students_table (
     id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL
 );
 
 
@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS patients_table (
 CREATE TABLE IF NOT EXISTS appointments_table (
     id INTEGER PRIMARY KEY,
     reason TEXT,
+    patient_id INTEGER,
+    doctor_id INTEGER
 );
 
 INSERT INTO doctors_table (name, specialty) VALUES ("Strange", "neurosurgery");
